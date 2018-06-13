@@ -1,0 +1,53 @@
+---
+layout: post
+title: Play 框架里 routes 文件的命名
+date: 2018-06-14
+---
+
+如果你在用 [play](https://www.playframework.com/)，肯定会用到 `routes` 以及分层的子 `routes` 配置，类似这样
+
+`routes`:
+
+~~~
+    GET     /                           controllers.HomeController.index
+
+    ->     /v1/posts                    posts.routes
+~~~
+
+`posts.routes`:
+
+~~~
+    GET    /                     v1.post.PostController.list
+    POST   /                     v1.post.PostController.create
+
+    GET    /:id                 v1.post.PostController.show(id)
+    PUT    /:id                 v1.post.PostController.update(id)
+~~~
+
+刚好这个工程是个 rest api 服务，同时提供一些 `Vue.js` 的前端页面，`routes` 文件自然的变成这样
+    
+`routes`:
+
+~~~
+    GET     /                           controllers.HomeController.index
+    
+    ->      /api                        api.routes
+    
+    GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+~~~
+
+要真这么写，遇到的错误会莫名其妙，明明存在的类忽然就变成 `ClassNotFound`
+
+其实问题根源在于 `routes` 文件的生成机制。框架会为 `routes` 文件们生成各自的类，而 `api.routes` 就是入口的 `routes` 文件对应的类名，刚好跟子 `routes` 文件对应的类名冲突，导致框架的基本路由被应用程序的路由逻辑覆盖，于是就出现各种 `ClassNotFound` 异常。
+
+解决方法简单直接，换个名字就好
+
+`routes`:
+
+~~~
+    GET     /                           controllers.HomeController.index
+
+    ->      /api                        endpoints.Routes
+
+    GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+~~~
