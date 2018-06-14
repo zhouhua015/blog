@@ -11,13 +11,13 @@ Module build failed: TypeError: Cannot read property 'afterCompile' of undefined
 ```
 
 挠头半天发现，原来是 ts-loader 新版本的问题。解决办法：
-* ``` npm i --save-dev ts-loader@^3.5.0 ```
-* 在 ``` webpack.config.js ``` 里用 ``` vue-ts-loader ``` 替换 ``` ts-loader ```
+* `npm i --save-dev ts-loader@^3.5.0`
+* 或者，在 `webpack.config.js` 里用 `vue-ts-loader` 替换 `ts-loader`
     ```javascript
-    { 
+    {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
         loader: 'vue-ts-loader'
     }
     ```
-  在 xxxx.vue 的 ``` script ``` 节点添加 ``` lang="vue-ts" ```
+  同时，在 `xxxx.vue` 的 `script` 节点添加 `lang="vue-ts"`
