@@ -35,7 +35,7 @@ module.exports = {
 
 wepack-dev-server 就将任何以 /api 起始的链接转发到后端的数据服务上，而对于 Play 框架来说，这些请求与直接的请求没有区别。
 
-部署到生产环境，[自然无法再使用这种方式](https://en.wikipedia.org/wiki/Cross-site_scripting)。在正式的生产环境下，前后端最好由统一的 web 服务器提供服务，降低部署复杂度。直接的做法就是把 webpack 生成的 dist 文件夹整体作为后台的静态资源。
+在正式的生产环境下，前后端最好由统一的 web 服务器提供服务，降低部署复杂度。直接的做法就是把 webpack 生成的 dist 文件夹整体作为后台的静态资源。
 
 ```
 GET     /                           controllers.HomeController.index
