@@ -3,11 +3,11 @@ layout: post
 title: Vue.js + Play 混合开发
 date: 2018-07-11
 ---
-Play 是个相对简单的 Java/Scala 框架，后端开发过程中可以主要跟 Java 打交道，最多附带一点 Scala，不会变成 XML 开发。
+Play 是个相对简单的 Java/Scala 框架，后端开发过程中可以主要跟 Java 打交道，最多附带一点 Scala，不会变成 XML 开发。
 
-但 Play 有一点不够好，它用的是 [Twirl](https://github.com/playframework/twirl) 模板引擎，而主流的界面框架像 Angular/React/Vue.js 能够更快速的拼装出页面。除此之外，前端开发有一些成熟的工具和集成开发环境，像 webpack 和 Visual Studio Code，能够极大程度解放生产力。其实，Play 本身支持流行的前端框架，只是不在默认配置内。以 Vue.js 为例，几个小步骤即可实现前后端分离开发，生产环境合并部署。
+但 Play 有一点不够好，它用的是 [Twirl](https://github.com/playframework/twirl) 模板引擎，而主流的界面框架像 Angular/React/Vue.js 能够更快速的拼装出页面。除此之外，前端开发有一些成熟的工具和集成开发环境，像 webpack 和 Visual Studio Code，能够极大程度解放生产力。其实，Play 本身支持流行的前端框架，只是不在默认配置内。以 Vue.js 为例，几个小步骤即可实现前后端分离开发，生产环境合并部署。
 
-前端用 webpack + Visual Studio Code，以 webpack 模版创建 Vue.js 项目
+前端用 webpack + Visual Studio Code，以 webpack 模版创建 Vue.js 项目
 
 ```bash
 npm install -g @vue/cli-init
@@ -17,7 +17,7 @@ vue init webpack my-project
 
 以 Play 的 [REST API 项目](https://github.com/playframework/play-java-rest-api-example/tree/2.6.x)作为后端示例。这样，一个前后端分离的项目就成型了，Vue.js 项目仅负责界面逻辑，包括页面组织，导航跳转，数据展现等等，而后台专注于 REST API 的数据服务。
 
-开发环境下，界面的 web 服务由 [webpack-dev-server](https://webpack.js.org/guides/development/#using-webpack-dev-server) 提供，它包含了一系列旨在提高开发效率的特性。而且，webpack-dev-server 还可以作为后台数据服务的代理，在 config/index.js 中增加：
+开发环境下，界面的 web 服务由 [webpack-dev-server](https://webpack.js.org/guides/development/#using-webpack-dev-server) 提供，它包含了一系列旨在提高开发效率的特性。而且，webpack-dev-server 还可以作为后台数据服务的代理，在 config/index.js 中增加：
 
 ```Javascript
 module.exports = {
@@ -33,7 +33,7 @@ module.exports = {
 }
 ```
 
-wepack-dev-server 就将任何以 /api 起始的链接转发到后端的数据服务上，而对于 Play 框架来说，这些请求与直接的请求没有区别。
+wepack-dev-server 就将任何以 /api 起始的链接转发到后端的数据服务上，而对于 Play 框架来说，这些请求与直接的请求没有区别。
 
 在正式的生产环境下，前后端最好由统一的 web 服务器提供服务，降低部署复杂度。直接的做法就是把 webpack 生成的 dist 文件夹整体作为后台的静态资源。
 
@@ -45,7 +45,7 @@ GET     /                           controllers.HomeController.index
 # 这是入手点
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 ```
-依照文档描述，配置 [asset controller](https://www.playframework.com/documentation/2.6.x/AssetsOverview#the-assets-controller)。首先，在 routes 里修改静态资源的路由信息
+依照文档描述，配置 [Assets Controller](https://www.playframework.com/documentation/2.6.x/AssetsOverview#the-assets-controller)。首先，在 routes 里修改静态资源的路由信息
 ```
 GET  /assets/*file  controllers.Assets.versioned(path="/public", file: Asset)
 ```
@@ -71,9 +71,9 @@ GET  /assets/*file  controllers.Assets.versioned(path="/public", file: Asset)
 </body>
 </html>
 ```
-这个方案的问题在于，webpack 生成的是抽取合并混淆过的资源文件，文件名中带了 hash 编码以更新浏览器缓存。这样每次更新前端内容后都需要调整 index.scala.html 的内容，太繁琐。
+这个方案的问题在于，webpack 生成的是抽取合并混淆过的资源文件，文件名中带了 hash 编码以更新浏览器缓存。这样每次更新前端内容后都需要调整 index.scala.html 的内容，太繁琐。
 
-为处理这个问题，使用 [AssertFinder](https://www.playframework.com/documentation/2.6.x/AssetsOverview#using-configuration-and-assetsfinder) 来自动替换文件名。回到配置 asset controller 的步骤，在 application.conf 里添加静态资源的位置信息
+为处理这个问题，使用 [AssertFinder](https://www.playframework.com/documentation/2.6.x/AssetsOverview#using-configuration-and-assetsfinder) 来自动替换文件名。回到配置 asset controller 的步骤，在 application.conf 里添加静态资源的位置信息
 ```Scala
 # setup asset path
 play.assets {
@@ -110,10 +110,10 @@ GET     /static/*file               controllers.Assets.versioned(file)
 </body>
 </html>
 ```
-新的 index.scala.html 中，不再指定具体的资源名，使用的是具体的文件名，需要 AssetFinder 的辅助，才能获取真正的带 hash 的 webpack 输出结果文件。
+新的 index.scala.html 中，不再指定具体的资源名，使用的是具体的文件名，需要 AssetFinder 的辅助，才能获取真正的带 hash 的 webpack 输出结果文件。
 
 为此，需要增加一个 VueAssetFinder 类
-``` Java
+```Java
 package controllers;
 
 import java.io.File;
@@ -191,4 +191,4 @@ public class HomeController extends Controller {
     }
 }
 ```
-所有设置完成后，部署生产环境就变成常规的 Play 项目部署之前，增加 webpack prod build 以及拷贝 webpack 生成结果的步骤，可以通过前后台整体的编译脚本完成。
+所有设置完成后，部署生产环境就变成常规的 Play 项目部署之前，增加 webpack prod build 以及拷贝 webpack 生成结果的步骤，可以通过前后台整体的编译脚本完成。
