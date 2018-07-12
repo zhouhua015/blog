@@ -161,7 +161,7 @@ public class VueAssetFinder implements AssetsFinder {
         return null;
     }
 
-    @Override
+    @Overrides
     public String path(String rawPath) {
         return AssetsFinder.super.path(rawPath);
     }
@@ -191,4 +191,4 @@ public class HomeController extends Controller {
     }
 }
 ```
-所有设置完成后，部署生产环境就变成常规的 Play 项目部署之前，增加 webpack prod build 以及拷贝 webpack 生成结果的步骤。新增的步骤可以通过前后台整体的编译脚本完成，也可以直接在前端的 webpack.conf.js 中指定生成目录解决。
+所有设置完成后，部署生产环境就变成常规的 Play 项目部署之前，增加 webpack prod build 以及拷贝 webpack 生成结果的步骤，可以通过前后台整体的编译脚本完成。
