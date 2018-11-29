@@ -1,5 +1,6 @@
 name: /dev/null
 baseurl: /blog
 permalink: /:year/:month/:day/:title
+repository: zhouhua015/blog
 
 theme: jekyll-theme-tactile
