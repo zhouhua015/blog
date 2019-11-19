@@ -1,3 +1,4 @@
 _site/
 .cache/
 Gemfile*
+.sass-cache/
