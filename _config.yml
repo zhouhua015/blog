@@ -1,9 +1,15 @@
 name: /dev/null
-baseurl: /blog
 permalink: /:year/:month/:day/:title
 repository: zhouhua015/blog
 
 theme: jekyll-theme-cayman
 title: /dev/null
-description: 
+description:
 show_downloads: false
+
+gems:
+- jekyll-github-metadata
+- jekyll-mentions
+- jekyll-redirect-from
+- jekyll-sitemap
+- jemoji
