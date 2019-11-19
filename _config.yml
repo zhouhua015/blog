@@ -1,6 +1,6 @@
 name: /dev/null
 permalink: /:year/:month/:day/:title
-repository: zhouhua015/blog
+repository: zhouhua015/zhouhua015.github.io
 
 theme: jekyll-theme-cayman
 title: /dev/null
