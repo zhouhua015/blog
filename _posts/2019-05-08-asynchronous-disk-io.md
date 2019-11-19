@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 高性能磁盘 I/O 编程
-tags:
+categories:
   - performance
   - linux
   - io
@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 ```
+
 KAIO 有几点注意事项：
 
 1. 使用 `O_DIRECT` 打开，提交的 I/O 请求参数，buffer 的地址和 length 的值，满足 `O_DIRECT` 的对齐要求
@@ -95,7 +96,7 @@ KAIO 有几点注意事项：
     read or write requests. Note that the total allocated number may be twice
     this amount, since it applies only to reads or writes (not the accumulated
     sum).
-
+    
     ......
 
 或者数据块大小超过设备允许的最大请求大小 [max_sectors_kb](https://www.kernel.org/doc/Documentation/block/queue-sysfs.txt)，内核必须把数据切成符合要求的多个小块，此时也可能阻塞调用者。
@@ -119,6 +120,7 @@ CPU 也是个潜在的故障点。如果单个线程提交请求过于频繁，C
 最好，这篇小小的总结不是终极银弹，只是汇总各种可能的陷阱以及 dirty evil details。这里提到的各项参数也没有普适的最优解，收集实际测试数据，分析系统瓶颈，调优代码热点路径和系统设置，衡量各方案利弊，才能得到符合业务需求的最佳平衡点。
 
 ## 相关链接:
+
 - [Kernel Asynchronous I/O (AIO) Support for Linux](http://lse.sourceforge.net/io/aio.html)
 - [How to use the Linux AIO feature > Performance Consideration](https://github.com/littledan/linux-aio#performance-considerations)
 - [Qualifying Filesystems for Seastar and ScyllaDB](https://www.scylladb.com/2016/02/09/qualifying-filesystems/)

@@ -3,7 +3,7 @@ layout: post
 title: 运行时的符号决议
 categories:
   - c/cpp
-tags:
+categories:
   - details
   - linux
   - runtime

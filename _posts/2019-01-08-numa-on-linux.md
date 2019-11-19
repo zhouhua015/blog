@@ -1,7 +1,7 @@
 ---
 layout: post
 title: NUMA 与 Linux
-tags:
+categories:
   - performance
   - linux
 date: 2019-01-08

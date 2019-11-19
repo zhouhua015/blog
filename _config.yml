@@ -1,15 +1,39 @@
-name: /dev/null
+remote-theme: thelehhman/plainwhite
 permalink: /:year/:month/:day/:title
-repository: zhouhua015/zhouhua015.github.io
+#repository: zhouhua015/zhouhua015.github.io
 
-theme: jekyll-theme-cayman
 title: /dev/null
-description:
-show_downloads: false
+author: Hua Zhou
+email: zhouhua015+blog@gmail.com
+description: Write to learn
+show_excerpts: true
 
-gems:
-- jekyll-github-metadata
-- jekyll-mentions
-- jekyll-redirect-from
-- jekyll-sitemap
-- jemoji
+# Minima date format
+# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+sass:
+  sass_dir: _sass
+
+plainwhite:
+  name: Hua Zhou
+  tagline: Maker
+  date_format: "%b %-d, %Y"
+  sitemap: true # set to true to generate sitemap.xml content
+
+  social_links:
+    github:  zhouhua015
+
+# If you want to link only specific pages in your header, uncomment
+# this and add the path to the pages in order as they should show up
+#header_pages:
+# - about.md
+
+# Build settings
+#theme: plainwhite
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+  - jekyll-mentions
+  - jekyll-redirect-from
+  - jekyll-sitemap
+  - jemoji

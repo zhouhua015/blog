@@ -1,7 +1,7 @@
 ---
 layout: post
 title: tmux 打造高效开发环境
-tags:
+categories:
   - productivity
   - tmux
   - terminal
@@ -35,7 +35,7 @@ date: 2019-11-15
 
 先来看看怎么解决前导键冲突问题，在 `~/.tmux.conf` 加入下面一行（如果没有，就创建一个新文件）：
 
-```tmux
+```
 set-option -g prefix C-a
 ```
 
@@ -43,7 +43,7 @@ set-option -g prefix C-a
 
 另一个问题，从前面的图2可以看到，`tmux` 中的窗口序号从 0 开始。看看键盘，`Ctrl-a`前导键在键盘左侧，而数字0则远在键盘右侧，需要双手协作才能完成切换动作，不是最优的移动策略。没关系，在 `~/.tmux.conf` 中增加一行：
 
-```tmux
+```
 set -g base-index 1
 ```
 
@@ -57,7 +57,7 @@ set -g base-index 1
 
 用户配置文件还可以进一步丰富：
 
-```tmux
+```
 set -g status-interval 1        # 设置状态栏刷新间隔1秒
 set -g status-justify centre    # 居中窗口列表
 set -g status-left-length 20    # 设置左侧状态栏最大长度
@@ -81,7 +81,7 @@ bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
 
 假设日常工作中要用到一个 `git` 操作终端，一个 `docker-compose` 启动的一组容器，以及后台数据服务。同时，远程服务器上还有一些维护工作。手动启动所有这些终端、服务、命令行，作为每日常规操作，枯燥繁琐。`tmux` 的自动化脚本可以一键完成所有的日常操作，你只需要全身心投入更具创造性的工作即可。
 
-```tmux
+```
 # tmux-work-env.conf
 #
 # 首先加载默认用户配置，这里是一些普适选项，修改前导键，设置窗口起始序号等

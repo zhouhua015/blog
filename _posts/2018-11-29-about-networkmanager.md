@@ -3,7 +3,7 @@ layout: post
 title: NetworkManager 和 init scripts
 categories: 
   - tools
-tags:
+categories:
   - linux
   - networking
 date: 2018-11-29

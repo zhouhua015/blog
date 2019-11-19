@@ -3,7 +3,7 @@ layout: post
 title: 条件操作符
 categories: 
   - c/cpp
-tags:
+categories:
   - details
   - whatithoughtiknew
 date: 2018-11-24
